@@ -20,4 +20,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./   # wp-content直下からアップする場合
-          server-dir: /public_html/wp-content/   # あなたのFTP先に応じて変更 
+          server-dir: /wp-content/   # ロリポップの場合、public_htmlがルート 
