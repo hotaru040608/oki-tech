@@ -21,4 +21,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./   # wp-content直下からアップする場合
           server-dir: /oki-tech/wp-content/   # Oki-Techサイトのwp-contentディレクトリ
-          dangerous-clean-slate: true   # デバッグ用：既存ファイルを削除してからアップロード 
+          # dangerous-clean-slate: true   # デバッグ用：既存ファイルを削除してからアップロード 
