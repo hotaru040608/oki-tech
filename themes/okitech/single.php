@@ -17,28 +17,38 @@ get_header();
                 
                 <!-- 投稿ヘッダー -->
                 <header class="entry-header mb-8">
-                    <?php the_title('<h1 class="entry-title text-4xl font-bold text-gray-800 mb-4">', '</h1>'); ?>
+                    <!-- カテゴリーバッジ -->
+                    <?php if (has_category()) : ?>
+                        <div class="mb-4">
+                            <?php
+                            $categories = get_the_category();
+                            $category = $categories[0];
+                            ?>
+                            <span class="inline-block px-4 py-2 text-sm font-semibold text-white bg-green-600 rounded-full">
+                                <?php echo esc_html($category->name); ?>
+                            </span>
+                        </div>
+                    <?php endif; ?>
                     
-                    <div class="entry-meta text-gray-600 mb-6">
-                        <span class="posted-on">
-                            <?php _e('投稿日:', 'okitech'); ?>
+                    <?php the_title('<h1 class="entry-title text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">', '</h1>'); ?>
+                    
+                    <div class="entry-meta text-gray-600 mb-6 flex flex-wrap items-center gap-4">
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
                             <time class="entry-date published" datetime="<?php echo esc_attr(get_the_date('c')); ?>">
                                 <?php echo esc_html(get_the_date()); ?>
                             </time>
-                        </span>
-                        
-                        <?php if (has_category()) : ?>
-                            <span class="cat-links ml-4">
-                                <?php _e('カテゴリー:', 'okitech'); ?>
-                                <?php the_category(', '); ?>
-                            </span>
-                        <?php endif; ?>
+                        </div>
                         
                         <?php if (has_tag()) : ?>
-                            <span class="tags-links ml-4">
-                                <?php _e('タグ:', 'okitech'); ?>
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                </svg>
                                 <?php the_tags('', ', '); ?>
-                            </span>
+                            </div>
                         <?php endif; ?>
                     </div>
                     
@@ -127,6 +137,9 @@ get_header();
                 </div>
             </nav>
 
+            <!-- CTAセクション -->
+            <?php get_template_part('template-parts/single-cta'); ?>
+            
             <!-- コメント -->
             <?php
             if (comments_open() || get_comments_number()) :

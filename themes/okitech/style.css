@@ -207,6 +207,148 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* 記事ページ専用スタイル */
+.single-cta-section {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0f9ff 100%);
+  border-radius: 16px;
+  margin: 2rem 0;
+}
+
+.single-cta-section .cta-card {
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.single-cta-section .cta-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-color: #10b981;
+}
+
+/* 記事コンテンツの改善 */
+.entry-content {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #374151;
+}
+
+.entry-content h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #10b981;
+  padding-bottom: 0.5rem;
+}
+
+.entry-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.entry-content p {
+  margin-bottom: 1.25rem;
+}
+
+.entry-content ul, .entry-content ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.entry-content li {
+  margin-bottom: 0.5rem;
+}
+
+.entry-content blockquote {
+  border-left: 4px solid #10b981;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.entry-content code {
+  background: #f3f4f6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+}
+
+.entry-content pre {
+  background: #1f2937;
+  color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+/* シェアボタンの改善 */
+.share-buttons {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.share-buttons a {
+  transition: all 0.3s ease;
+}
+
+.share-buttons a:hover {
+  transform: translateY(-2px);
+}
+
+/* 著者情報の改善 */
+.author-info {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 1px solid #e5e7eb;
+}
+
+/* 投稿ナビゲーションの改善 */
+.post-navigation {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-navigation a {
+  color: #10b981;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.post-navigation a:hover {
+  color: #059669;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .entry-title {
+    font-size: 2rem;
+  }
+  
+  .entry-content {
+    font-size: 1rem;
+  }
+  
+  .entry-content h2 {
+    font-size: 1.5rem;
+  }
+  
+  .entry-content h3 {
+    font-size: 1.25rem;
+  }
+  
+  .single-cta-section .cta-related {
+    grid-template-columns: 1fr;
+  }
+}
 .site-main {
   margin-bottom: 4rem;
 }
