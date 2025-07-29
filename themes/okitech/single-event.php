@@ -37,143 +37,56 @@ get_header();
         <div class="container mx-auto px-4 py-8">
             <div class="max-w-6xl mx-auto">
                 
-                <!-- イベント基本情報カード -->
-                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden mb-8">
-                    <!-- アイキャッチ画像 -->
-                    <?php if (has_post_thumbnail()) : ?>
-                        <div class="relative h-48 md:h-64 m-4 rounded-xl overflow-hidden">
+                <!-- アイキャッチ画像のみのヘッダー -->
+                <?php if (has_post_thumbnail()) : ?>
+                    <div class="relative mb-8">
+                        <div class="relative h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-lg">
                             <?php the_post_thumbnail('large', array('class' => 'w-full h-full object-cover')); ?>
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                        </div>
-                    <?php endif; ?>
-                    
-                    <!-- イベント情報 -->
-                    <div class="px-4 md:px-8 pb-8">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                        <?php
-                        $event_date = get_post_meta(get_the_ID(), 'event_date', true);
-                        $event_time = get_post_meta(get_the_ID(), 'event_time', true);
-                        $event_type = get_post_meta(get_the_ID(), 'event_type', true);
-                        $event_location = get_post_meta(get_the_ID(), 'event_location', true);
-                        $event_address = get_post_meta(get_the_ID(), 'event_address', true);
-                        $event_online_url = get_post_meta(get_the_ID(), 'event_online_url', true);
-                        $event_online_tool = get_post_meta(get_the_ID(), 'event_online_tool', true);
-                        $event_capacity = get_post_meta(get_the_ID(), 'event_capacity', true);
-                        $event_price = get_post_meta(get_the_ID(), 'event_price', true);
-                        $event_deadline = get_post_meta(get_the_ID(), 'event_deadline', true);
-                        ?>
-                        
-                        <?php if ($event_date) : ?>
-                            <div class="event-info text-center p-4 md:p-6 bg-gray-50 rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
-                                <div class="bg-white w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 shadow-sm border border-gray-200">
-                                    <svg class="w-6 h-6 md:w-8 md:h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                    </svg>
-                                </div>
-                                <h4 class="font-semibold text-gray-700 mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wide">開催日</h4>
-                                <p class="text-gray-800 font-medium text-base md:text-lg"><?php echo esc_html(date_i18n('Y年n月j日（D）', strtotime($event_date))); ?></p>
-                            </div>
-                        <?php endif; ?>
-                        
-                        <?php if ($event_time) : ?>
-                            <div class="event-info text-center p-4 md:p-6 bg-gray-50 rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
-                                <div class="bg-white w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 shadow-sm border border-gray-200">
-                                    <svg class="w-6 h-6 md:w-8 md:h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                </div>
-                                <h4 class="font-semibold text-gray-700 mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wide">開催時間</h4>
-                                <p class="text-gray-800 font-medium text-base md:text-lg"><?php echo esc_html($event_time); ?></p>
-                            </div>
-                        <?php endif; ?>
-                        
-                        <?php if ($event_type && ($event_type === 'online' || $event_type === 'hybrid')) : ?>
-                            <div class="event-info text-center p-4 md:p-6 bg-blue-50 rounded-xl border border-blue-100 hover:shadow-md transition-shadow">
-                                <div class="bg-white w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 shadow-sm border border-blue-200">
-                                    <svg class="w-6 h-6 md:w-8 md:h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                                    </svg>
-                                </div>
-                                <h4 class="font-semibold text-blue-700 mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wide">オンライン参加</h4>
-                                <?php if ($event_online_tool) : ?>
-                                    <p class="text-blue-800 font-medium mb-2 text-sm md:text-base"><?php echo esc_html(ucfirst($event_online_tool)); ?></p>
-                                <?php endif; ?>
-                                <?php if ($event_online_url) : ?>
-                                    <a href="<?php echo esc_url($event_online_url); ?>" 
-                                       target="_blank" 
-                                       rel="noopener noreferrer"
-                                       class="text-blue-600 hover:text-blue-800 hover:underline transition-colors text-xs md:text-sm flex items-center justify-center">
-                                        参加URL
-                                        <svg class="w-3 h-3 md:w-4 md:h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                        </svg>
-                                    </a>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                            
+                            <!-- イベントタイトルオーバーレイ -->
+                            <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                                <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 leading-tight">
+                                    <?php the_title(); ?>
+                                </h1>
+                                
+                                <!-- カテゴリーバッジ -->
+                                <?php if (has_category()) : ?>
+                                    <div class="flex flex-wrap gap-2">
+                                        <?php
+                                        $categories = get_the_category();
+                                        foreach ($categories as $category) :
+                                        ?>
+                                            <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-green-600/80 backdrop-blur-sm rounded-full">
+                                                <?php echo esc_html($category->name); ?>
+                                            </span>
+                                        <?php endforeach; ?>
+                                    </div>
                                 <?php endif; ?>
                             </div>
-                        <?php endif; ?>
-                        
-                        <?php if ($event_location && ($event_type === 'offline' || $event_type === 'hybrid')) : ?>
-                            <div class="event-info text-center p-4 md:p-6 bg-gray-50 rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
-                                <div class="bg-white w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 shadow-sm border border-gray-200">
-                                    <svg class="w-6 h-6 md:w-8 md:h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    </svg>
-                                </div>
-                                <h4 class="font-semibold text-gray-700 mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wide">開催場所</h4>
-                                <p class="text-gray-800 font-medium mb-2 text-sm md:text-base"><?php echo esc_html($event_location); ?></p>
-                                <?php if ($event_address) : ?>
-                                    <a href="https://www.google.com/maps/search/<?php echo urlencode($event_address); ?>" 
-                                       target="_blank" 
-                                       rel="noopener noreferrer"
-                                       class="text-blue-600 hover:text-blue-800 hover:underline transition-colors text-xs md:text-sm flex items-center justify-center">
-                                        <?php echo esc_html($event_address); ?>
-                                        <svg class="w-3 h-3 md:w-4 md:h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                        </svg>
-                                    </a>
-                                <?php endif; ?>
-                            </div>
-                        <?php endif; ?>
-                        
-                        <?php if ($event_capacity) : ?>
-                            <div class="event-info text-center p-4 md:p-6 bg-gray-50 rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
-                                <div class="bg-white w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 shadow-sm border border-gray-200">
-                                    <svg class="w-6 h-6 md:w-8 md:h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                    </svg>
-                                </div>
-                                <h4 class="font-semibold text-gray-700 mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wide">定員</h4>
-                                <p class="text-gray-800 font-medium text-base md:text-lg"><?php echo esc_html($event_capacity); ?>名</p>
-                            </div>
-                        <?php endif; ?>
-                        
-                        <?php if ($event_price) : ?>
-                            <div class="event-info text-center p-4 md:p-6 bg-gray-50 rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
-                                <div class="bg-white w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 shadow-sm border border-gray-200">
-                                    <svg class="w-6 h-6 md:w-8 md:h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                                    </svg>
-                                </div>
-                                <h4 class="font-semibold text-gray-700 mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wide">参加費</h4>
-                                <p class="text-gray-800 font-medium text-lg md:text-xl"><?php echo esc_html($event_price); ?></p>
-                            </div>
-                        <?php endif; ?>
-                        
-                        <?php if ($event_deadline) : ?>
-                            <div class="event-info text-center p-4 md:p-6 bg-gray-50 rounded-xl border border-gray-100 hover:shadow-md transition-shadow">
-                                <div class="bg-white w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 shadow-sm border border-gray-200">
-                                    <svg class="w-6 h-6 md:w-8 md:h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                </div>
-                                <h4 class="font-semibold text-gray-700 mb-2 md:mb-3 text-xs md:text-sm uppercase tracking-wide">申し込み締切</h4>
-                                <p class="text-gray-800 font-medium text-base md:text-lg"><?php echo esc_html(date_i18n('Y年n月j日 H:i', strtotime($event_deadline))); ?></p>
-                            </div>
-                        <?php endif; ?>
                         </div>
                     </div>
-                </div>
+                <?php else : ?>
+                    <!-- アイキャッチ画像がない場合のフォールバック -->
+                    <div class="bg-gradient-to-r from-green-500 to-blue-600 rounded-2xl p-8 mb-8 text-center">
+                        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                            <?php the_title(); ?>
+                        </h1>
+                        <?php if (has_category()) : ?>
+                            <div class="flex flex-wrap justify-center gap-2">
+                                <?php
+                                $categories = get_the_category();
+                                foreach ($categories as $category) :
+                                ?>
+                                    <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-white/20 backdrop-blur-sm rounded-full">
+                                        <?php echo esc_html($category->name); ?>
+                                    </span>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+
                 
                 <div class="grid lg:grid-cols-3 gap-6 md:gap-8">
                     <!-- イベント詳細 -->
