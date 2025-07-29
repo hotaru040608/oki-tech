@@ -114,9 +114,6 @@ get_header();
                     
                     <!-- サイドバー -->
                     <div class="lg:col-span-1 space-y-6">
-                        <!-- 固定イベント情報カード -->
-                        <?php get_template_part('template-parts/event-info-card'); ?>
-                        
                         <!-- リスト化された申し込み情報 -->
                         <?php get_template_part('template-parts/event-application-info'); ?>
                         
