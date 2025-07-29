@@ -42,28 +42,6 @@ get_header();
                     <div class="relative mb-8">
                         <div class="relative h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-lg">
                             <?php the_post_thumbnail('large', array('class' => 'w-full h-full object-cover')); ?>
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                            
-                            <!-- イベントタイトルオーバーレイ -->
-                            <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                                <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 leading-tight">
-                                    <?php the_title(); ?>
-                                </h1>
-                                
-                                <!-- カテゴリーバッジ -->
-                                <?php if (has_category()) : ?>
-                                    <div class="flex flex-wrap gap-2">
-                                        <?php
-                                        $categories = get_the_category();
-                                        foreach ($categories as $category) :
-                                        ?>
-                                            <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-green-600/80 backdrop-blur-sm rounded-full">
-                                                <?php echo esc_html($category->name); ?>
-                                            </span>
-                                        <?php endforeach; ?>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
                         </div>
                     </div>
                 <?php else : ?>
@@ -91,13 +69,32 @@ get_header();
                 <div class="grid lg:grid-cols-3 gap-6 md:gap-8">
                     <!-- イベント詳細 -->
                     <div class="lg:col-span-2">
+                        <!-- イベントタイトル -->
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+                            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                                <?php the_title(); ?>
+                            </h1>
+                            <?php if (has_category()) : ?>
+                                <div class="flex flex-wrap gap-2">
+                                    <?php
+                                    $categories = get_the_category();
+                                    foreach ($categories as $category) :
+                                    ?>
+                                        <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-green-600 rounded-full">
+                                            <?php echo esc_html($category->name); ?>
+                                        </span>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        
                         <!-- イベント詳細内容 -->
                         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6">
                             <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 flex items-center">
                                 <svg class="w-5 h-5 md:w-6 md:h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
-                                <?php the_title(); ?>
+                                イベント詳細
                             </h3>
                             <div class="entry-content prose prose-lg max-w-none text-gray-700 leading-relaxed">
                                 <?php
