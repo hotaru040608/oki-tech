@@ -70,22 +70,66 @@ get_header();
                     <!-- イベント詳細 -->
                     <div class="lg:col-span-2">
                         <!-- イベントタイトル -->
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-                            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-                                <?php the_title(); ?>
-                            </h1>
-                            <?php if (has_category()) : ?>
-                                <div class="flex flex-wrap gap-2">
-                                    <?php
-                                    $categories = get_the_category();
-                                    foreach ($categories as $category) :
-                                    ?>
-                                        <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-green-600 rounded-full">
-                                            <?php echo esc_html($category->name); ?>
-                                        </span>
-                                    <?php endforeach; ?>
+                        <div class="event-title-section bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl shadow-lg border border-green-200 p-8 mb-8 relative overflow-hidden">
+                            <!-- 背景装飾 -->
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-green-200 rounded-full opacity-20 -translate-y-16 translate-x-16"></div>
+                            <div class="absolute bottom-0 left-0 w-24 h-24 bg-blue-200 rounded-full opacity-20 translate-y-12 -translate-x-12"></div>
+                            
+                            <div class="relative z-10">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-600 rounded-xl flex items-center justify-center mr-4 shadow-lg">
+                                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight">
+                                            <?php the_title(); ?>
+                                        </h1>
+                                    </div>
                                 </div>
-                            <?php endif; ?>
+                                
+                                <?php if (has_category()) : ?>
+                                    <div class="flex flex-wrap gap-3">
+                                        <?php
+                                        $categories = get_the_category();
+                                        foreach ($categories as $category) :
+                                        ?>
+                                            <span class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-green-500 to-green-600 rounded-full shadow-md hover:from-green-600 hover:to-green-700 transition-all duration-200 transform hover:scale-105">
+                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                                </svg>
+                                                <?php echo esc_html($category->name); ?>
+                                            </span>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php endif; ?>
+                                
+                                <!-- イベントメタ情報 -->
+                                <div class="mt-6 pt-6 border-t border-green-200/50">
+                                    <div class="flex flex-wrap items-center gap-6 text-sm text-gray-600">
+                                        <div class="flex items-center">
+                                            <svg class="w-4 h-4 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                            </svg>
+                                            <span class="font-medium">イベント</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <svg class="w-4 h-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            <span class="font-medium"><?php echo get_the_date('Y年n月j日'); ?></span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <svg class="w-4 h-4 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            </svg>
+                                            <span class="font-medium">沖縄</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- イベント詳細内容 -->
