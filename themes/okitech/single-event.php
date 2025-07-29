@@ -204,67 +204,8 @@ get_header();
                         <!-- 固定イベント情報カード -->
                         <?php get_template_part('template-parts/event-info-card'); ?>
                         
-                        <!-- 申し込みフォーム -->
-                        <?php
-                        // 締切時間のチェック
-                        $is_deadline_passed = false;
-                        if ($event_deadline) {
-                            $deadline_timestamp = strtotime($event_deadline);
-                            $current_timestamp = current_time('timestamp');
-                            $is_deadline_passed = $current_timestamp > $deadline_timestamp;
-                        }
-                        ?>
-                        
-                        <?php if ($is_deadline_passed) : ?>
-                            <!-- 締切済みの場合 -->
-                            <div class="bg-gray-100 border border-gray-300 rounded-xl p-6">
-                                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                    <svg class="w-5 h-5 text-red-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    イベント申し込み
-                                </h3>
-                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-4">
-                                    <p class="font-semibold">申し込み受付終了</p>
-                                    <p class="text-sm mt-1">申し込み締切日時を過ぎたため、受付を終了いたしました。</p>
-                                </div>
-                                <div class="text-sm text-gray-600">
-                                    <p>締切日時: <?php echo esc_html(date_i18n('Y年n月j日 H:i', strtotime($event_deadline))); ?></p>
-                                </div>
-                            </div>
-                        <?php else : ?>
-                            <!-- 申し込み受付中の場合 -->
-                            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-                                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                    <svg class="w-5 h-5 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                    </svg>
-                                    イベント申し込み
-                                </h3>
-                                
-                                <?php if ($event_deadline) : ?>
-                                    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded-lg mb-4">
-                                        <p class="font-semibold">申し込み受付中</p>
-                                        <p class="text-sm mt-1">締切: <?php echo esc_html(date_i18n('n月j日 H:i', strtotime($event_deadline))); ?></p>
-                                    </div>
-                                <?php endif; ?>
-                                
-                                <?php
-                                // Contact Form 7のフォームを表示
-                                if (function_exists('wpcf7_contact_form')) {
-                                    echo do_shortcode('[contact-form-7 id="8697354" title="イベント申し込みフォーム"]');
-                                } else {
-                                    // Contact Form 7が無効な場合のフォールバック
-                                    echo okitech_display_event_application_form();
-                                }
-                                ?>
-                                
-                                <div class="mt-4 text-sm text-gray-600">
-                                    <p>※ 申し込み後、確認メールをお送りします。</p>
-                                    <p>※ 個人情報は適切に管理いたします。</p>
-                                </div>
-                            </div>
-                        <?php endif; ?>
+                        <!-- リスト化された申し込み情報 -->
+                        <?php get_template_part('template-parts/event-application-info'); ?>
                         
                         <!-- お問い合わせ -->
                         <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
