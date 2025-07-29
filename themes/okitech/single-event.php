@@ -201,6 +201,9 @@ get_header();
                     
                     <!-- サイドバー -->
                     <div class="lg:col-span-1 space-y-6">
+                        <!-- 固定イベント情報カード -->
+                        <?php get_template_part('template-parts/event-info-card'); ?>
+                        
                         <!-- 申し込みフォーム -->
                         <?php
                         // 締切時間のチェック
@@ -214,7 +217,7 @@ get_header();
                         
                         <?php if ($is_deadline_passed) : ?>
                             <!-- 締切済みの場合 -->
-                            <div class="bg-gray-100 border border-gray-300 rounded-xl p-6 sticky top-8">
+                            <div class="bg-gray-100 border border-gray-300 rounded-xl p-6">
                                 <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                                     <svg class="w-5 h-5 text-red-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -231,7 +234,7 @@ get_header();
                             </div>
                         <?php else : ?>
                             <!-- 申し込み受付中の場合 -->
-                            <div class="bg-white border border-gray-200 rounded-xl p-6 sticky top-8 shadow-sm">
+                            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
                                 <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                                     <svg class="w-5 h-5 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -262,47 +265,6 @@ get_header();
                                 </div>
                             </div>
                         <?php endif; ?>
-                        
-                        <!-- イベント情報サマリー -->
-                        <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
-                            <h4 class="text-lg font-semibold text-gray-800 mb-4">イベント情報</h4>
-                            <div class="space-y-3 text-sm">
-                                <?php if ($event_date) : ?>
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600">開催日:</span>
-                                        <span class="font-medium"><?php echo esc_html(date_i18n('n/j（D）', strtotime($event_date))); ?></span>
-                                    </div>
-                                <?php endif; ?>
-                                
-                                <?php if ($event_time) : ?>
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600">時間:</span>
-                                        <span class="font-medium"><?php echo esc_html($event_time); ?></span>
-                                    </div>
-                                <?php endif; ?>
-                                
-                                <?php if ($event_location) : ?>
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600">場所:</span>
-                                        <span class="font-medium"><?php echo esc_html($event_location); ?></span>
-                                    </div>
-                                <?php endif; ?>
-                                
-                                <?php if ($event_price) : ?>
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600">参加費:</span>
-                                        <span class="font-medium text-green-600"><?php echo esc_html($event_price); ?></span>
-                                    </div>
-                                <?php endif; ?>
-                                
-                                <?php if ($event_capacity) : ?>
-                                    <div class="flex justify-between">
-                                        <span class="text-gray-600">定員:</span>
-                                        <span class="font-medium"><?php echo esc_html($event_capacity); ?>名</span>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
                         
                         <!-- お問い合わせ -->
                         <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
