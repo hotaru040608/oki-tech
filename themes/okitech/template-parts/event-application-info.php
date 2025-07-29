@@ -204,11 +204,7 @@ if ($is_deadline_passed) {
             }
             ?>
             
-            <div class="mt-4 text-sm text-gray-600 space-y-1">
-                <p>※ 申し込み後、確認メールをお送りします。</p>
-                <p>※ 個人情報は適切に管理いたします。</p>
-                <p>※ 定員に達した場合は先着順となります。</p>
-            </div>
+
         <?php endif; ?>
     </div>
 </div> 
