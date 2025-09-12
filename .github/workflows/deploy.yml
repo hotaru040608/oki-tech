@@ -19,8 +19,8 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./app/public/wp-content/   # wp-content直下からアップする場合
-          server-dir: /oki-tech/wp-content/   # Oki-Techサイトのwp-contentディレクトリ
+          local-dir: ./app/public/wp-content/themes/okitech/   # okitechテーマディレクトリをアップロード
+          server-dir: /oki-tech/wp-content/themes/okitech/   # 本番環境のテーマディレクトリ
           dangerous-clean-slate: true   # 既存ファイルを削除してからアップロード
           exclude: |
             **/.git*
