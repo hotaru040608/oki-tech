@@ -1460,6 +1460,13 @@ body {
     display: inline-block;
 }
 
+/* サイトタイトル（テキストロゴ）のサイズ設定 */
+.site-title a {
+    font-size: 2rem !important;
+    font-weight: bold !important;
+    color: #059669 !important;
+}
+
 .reset-filters:hover {
     color: #374151;
 }
