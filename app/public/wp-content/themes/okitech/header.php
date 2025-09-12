@@ -29,6 +29,8 @@
                             echo '<a href="' . esc_url(home_url('/')) . '" rel="home" class="custom-logo-link">';
                             echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="custom-logo" style="height: 64px; width: auto; max-width: 400px;">';
                             echo '</a>';
+                            // デバッグ用: ファイル更新確認
+                            echo '<!-- Updated: ' . date('Y-m-d H:i:s') . ' -->';
                         }
                         // ロゴのみを表示し、テキストは表示しない
                     } else { ?>
