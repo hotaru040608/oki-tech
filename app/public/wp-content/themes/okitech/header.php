@@ -25,10 +25,19 @@
                         // カスタムロゴを大きなサイズで表示
                         $custom_logo_id = get_theme_mod('custom_logo');
                         $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+                        echo '<!-- Debug: custom_logo_id=' . $custom_logo_id . ' -->';
+                        echo '<!-- Debug: logo_url=' . ($logo ? $logo[0] : 'null') . ' -->';
                         if ($logo) {
                             echo '<a href="' . esc_url(home_url('/')) . '" rel="home" class="custom-logo-link">';
                             echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="custom-logo" style="height: 64px; width: auto; max-width: 400px;">';
                             echo '</a>';
+                        } else {
+                            echo '<!-- Debug: Logo not found, falling back to text -->';
+                            echo '<h1 class="site-title">';
+                            echo '<a href="' . esc_url(home_url('/')) . '" rel="home" class="text-2xl font-bold text-green-600">';
+                            echo get_bloginfo('name');
+                            echo '</a>';
+                            echo '</h1>';
                         }
                         // ロゴのみを表示し、テキストは表示しない
                     } else { ?>
