@@ -1449,14 +1449,10 @@ body {
 }
 
 /* カスタムロゴのサイズ設定 */
-.custom-logo,
-.site-header .custom-logo,
-.site-branding .custom-logo,
-.custom-logo-link .custom-logo {
+.custom-logo {
     height: 64px !important;
     width: auto !important;
     max-width: 400px !important;
-    display: block !important;
 }
 
 /* カスタムロゴリンク */

@@ -27,7 +27,7 @@
                         $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
                         if ($logo) {
                             echo '<a href="' . esc_url(home_url('/')) . '" rel="home" class="custom-logo-link">';
-                            echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="custom-logo">';
+                            echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="custom-logo" style="height: 64px; width: auto; max-width: 400px;">';
                             echo '</a>';
                         }
                         // ロゴのみを表示し、テキストは表示しない
