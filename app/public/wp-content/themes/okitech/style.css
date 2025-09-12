@@ -1448,6 +1448,18 @@ body {
     transition: color 0.3s ease;
 }
 
+/* カスタムロゴのサイズ設定 */
+.custom-logo {
+    height: 64px !important;
+    width: auto !important;
+    max-width: 400px !important;
+}
+
+/* カスタムロゴリンク */
+.custom-logo-link {
+    display: inline-block;
+}
+
 .reset-filters:hover {
     color: #374151;
 }
