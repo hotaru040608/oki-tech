@@ -21,10 +21,6 @@
                 <!-- サイトロゴ・タイトル -->
                 <div class="site-branding flex items-center">
                     <?php
-                    // デバッグ情報を表示
-                    echo '<!-- Debug: has_custom_logo=' . (has_custom_logo() ? 'true' : 'false') . ' -->';
-                    echo '<!-- Debug: custom_logo_id=' . get_theme_mod('custom_logo') . ' -->';
-                    
                     if (has_custom_logo()) {
                         // カスタムロゴを大きなサイズで表示
                         $custom_logo_id = get_theme_mod('custom_logo');
@@ -33,8 +29,6 @@
                             echo '<a href="' . esc_url(home_url('/')) . '" rel="home" class="custom-logo-link">';
                             echo '<img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '" class="custom-logo">';
                             echo '</a>';
-                            // デバッグ用: ファイル更新確認
-                            echo '<!-- Updated: ' . date('Y-m-d H:i:s') . ' -->';
                         }
                         // ロゴのみを表示し、テキストは表示しない
                     } else { ?>
