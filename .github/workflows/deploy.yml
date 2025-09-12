@@ -3,7 +3,7 @@ name: FTP Deploy
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   ftp-deploy:
@@ -19,6 +19,6 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./   # wp-content直下からアップする場合
+          local-dir: ./app/public/wp-content/   # wp-content直下からアップする場合
           server-dir: /oki-tech/wp-content/   # Oki-Techサイトのwp-contentディレクトリ
           # dangerous-clean-slate: true   # デバッグ用：既存ファイルを削除してからアップロード 
