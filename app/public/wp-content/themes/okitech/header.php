@@ -21,6 +21,12 @@
                 <!-- サイトロゴ・タイトル -->
                 <div class="site-branding flex items-center">
                     <?php
+                    // デバッグ用の目立つコメント
+                    echo '<!-- ===== DEBUG INFO START ===== -->';
+                    echo '<!-- Updated: ' . date('Y-m-d H:i:s') . ' -->';
+                    echo '<!-- Version: 2.0 -->';
+                    echo '<!-- ===== DEBUG INFO END ===== -->';
+                    
                     if (has_custom_logo()) {
                         // カスタムロゴを大きなサイズで表示
                         $custom_logo_id = get_theme_mod('custom_logo');
