@@ -15,7 +15,7 @@
                 <h2 class="text-xl md:text-4xl font-semibold mb-4 leading-tight px-2">
                     <?php _e('沖縄で、<br class="md:hidden">新しいことを始める<br class="hidden md:block">仲間と出会おう', 'okitech'); ?>
                 </h2>
-                <p class="hidden md:block text-xl opacity-90 max-w-2xl mx-auto leading-relaxed px-4">
+                <p class="hidden md:block text-xl opacity-90 max-w-2xl mx-auto leading-relaxed px-4 text-pink-300">
                     <?php _e('AIやSNS、プログラミングを気軽に学べる沖縄の場所。初めての人も大丈夫、みんなで一緒に楽しく学びましょう。', 'okitech'); ?>
                 </p>
             </div>
