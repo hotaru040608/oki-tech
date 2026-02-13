@@ -13,10 +13,7 @@ get_header();
     <!-- 1. ヒーロー + 次回イベントスポットライト -->
     <?php get_template_part('template-parts/hero'); ?>
 
-    <!-- 2. 社会的証明ストリップ -->
-    <?php get_template_part('template-parts/front-social-proof'); ?>
-
-    <!-- 3. 開催予定イベント一覧 -->
+    <!-- 2. 開催予定イベント一覧 -->
     <section class="py-20 md:py-28">
         <div class="container mx-auto px-4">
             <div class="text-center mb-14 md:mb-20 scroll-fade-in">
