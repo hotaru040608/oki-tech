@@ -31,53 +31,38 @@ wp_reset_postdata();
 <main id="primary" class="site-main">
 
     <!-- ヒーローセクション -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-green-50 via-white to-teal-50 py-20 md:py-32">
-        <!-- 装飾ブロブ -->
-        <div class="absolute top-0 left-0 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-        <div class="absolute top-0 right-0 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-        <div class="absolute bottom-0 left-1/2 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-
-        <div class="container mx-auto px-4 relative z-10">
+    <section class="page-hero py-20 md:py-32">
+        <div class="container mx-auto px-4">
             <div class="max-w-3xl mx-auto text-center scroll-fade-in">
                 <!-- ラベル -->
-                <div class="inline-flex items-center gap-2 bg-green-100 text-green-700 font-semibold text-xs tracking-widest uppercase px-4 py-2 rounded-full mb-6">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
+                <div class="page-hero-label justify-center">
                     <?php _e('Events', 'okitech'); ?>
                 </div>
 
                 <!-- タイトル -->
-                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                <h1 class="page-hero-title mb-6">
                     <?php _e('イベント一覧', 'okitech'); ?>
                 </h1>
-                <p class="text-lg md:text-xl text-gray-500 leading-relaxed mb-10">
+                <p class="page-hero-desc mb-10">
                     <?php _e('勉強会、交流会、ワークショップなど、<br class="hidden md:inline">様々なイベントを開催しています。', 'okitech'); ?>
                 </p>
 
                 <!-- 統計カウンター -->
                 <div class="grid grid-cols-3 gap-4 max-w-lg mx-auto">
-                    <div class="bg-white bg-opacity-80 backdrop-filter backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-100">
-                        <span class="block text-2xl md:text-3xl font-bold text-green-600" data-count="<?php echo esc_attr($total_events); ?>" data-suffix="">0</span>
-                        <span class="block text-xs text-gray-400 mt-1"><?php _e('累計開催', 'okitech'); ?></span>
+                    <div class="social-proof-item" style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-xl);">
+                        <span class="block text-2xl md:text-3xl font-bold text-white" data-count="<?php echo esc_attr($total_events); ?>" data-suffix="">0</span>
+                        <span class="block text-xs text-white/60 mt-1"><?php _e('累計開催', 'okitech'); ?></span>
                     </div>
-                    <div class="bg-white bg-opacity-80 backdrop-filter backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-100">
-                        <span class="block text-2xl md:text-3xl font-bold text-orange-500" data-count="<?php echo esc_attr($upcoming_count); ?>" data-suffix="">0</span>
-                        <span class="block text-xs text-gray-400 mt-1"><?php _e('開催予定', 'okitech'); ?></span>
+                    <div class="social-proof-item" style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-xl);">
+                        <span class="block text-2xl md:text-3xl font-bold text-white" data-count="<?php echo esc_attr($upcoming_count); ?>" data-suffix="">0</span>
+                        <span class="block text-xs text-white/60 mt-1"><?php _e('開催予定', 'okitech'); ?></span>
                     </div>
-                    <div class="bg-white bg-opacity-80 backdrop-filter backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-100">
-                        <span class="block text-2xl md:text-3xl font-bold text-teal-600"><?php _e('無料', 'okitech'); ?></span>
-                        <span class="block text-xs text-gray-400 mt-1"><?php _e('参加多数', 'okitech'); ?></span>
+                    <div class="social-proof-item" style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-xl);">
+                        <span class="block text-2xl md:text-3xl font-bold text-white"><?php _e('無料', 'okitech'); ?></span>
+                        <span class="block text-xs text-white/60 mt-1"><?php _e('参加多数', 'okitech'); ?></span>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- 波形装飾 -->
-        <div class="absolute bottom-0 left-0 right-0">
-            <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
-                <path d="M0 60V30C240 0 480 0 720 30C960 60 1200 60 1440 30V60H0Z" fill="white"/>
-            </svg>
         </div>
     </section>
 
@@ -237,14 +222,14 @@ wp_reset_postdata();
                         <?php _e('新しいイベントの情報は随時更新いたします。<br class="hidden md:inline">Discordコミュニティに参加して最新情報をお受け取りください。', 'okitech'); ?>
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <a href="<?php echo esc_url(home_url('/')); ?>" class="btn-primary">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                             </svg>
                             <?php _e('ホームに戻る', 'okitech'); ?>
                         </a>
-                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('contact'))); ?>" class="inline-flex items-center justify-center border-2 border-gray-200 text-gray-600 hover:border-green-300 hover:text-green-700 font-semibold px-8 py-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('contact'))); ?>" class="btn-outline">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                             </svg>
                             <?php _e('お問い合わせ', 'okitech'); ?>
@@ -303,23 +288,26 @@ wp_reset_postdata();
     </div>
 
     <!-- CTA セクション -->
-    <section class="bg-gray-900 text-white py-16 md:py-24 scroll-fade-in">
+    <section class="final-cta-section py-20 md:py-28 scroll-fade-in">
         <div class="container mx-auto px-4 text-center">
             <div class="max-w-2xl mx-auto">
-                <p class="text-green-400 font-semibold text-sm tracking-widest uppercase mb-4"><?php _e('Join Us', 'okitech'); ?></p>
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full px-4 py-1.5 mb-6">
+                    <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span class="text-white/70 text-xs font-medium"><?php _e('Join Us', 'okitech'); ?></span>
+                </div>
+                <h2 class="cta-title mb-5">
                     <?php _e('一緒に学び、つながろう。', 'okitech'); ?>
                 </h2>
-                <p class="text-gray-400 text-lg mb-10 leading-relaxed">
+                <p class="cta-subtitle mb-10">
                     <?php _e('知識ゼロでOK。一人でもOK。<br class="hidden md:inline">Discordで最新イベント情報をお届けします。', 'okitech'); ?>
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="https://discord.gg/KDBynzKzUA" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-semibold text-lg px-8 py-4 rounded-xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
-                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
+                    <a href="https://discord.gg/KDBynzKzUA" target="_blank" rel="noopener noreferrer" class="btn-cta-primary">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
                         <?php _e('Discordに参加する', 'okitech'); ?>
                     </a>
-                    <a href="<?php echo esc_url(get_permalink(get_page_by_path('contact'))); ?>" class="inline-flex items-center justify-center border-2 border-gray-600 text-gray-300 hover:border-gray-400 hover:text-white font-semibold text-lg px-8 py-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5">
+                    <a href="<?php echo esc_url(get_permalink(get_page_by_path('contact'))); ?>" class="btn-cta-secondary">
                         <?php _e('お問い合わせ', 'okitech'); ?>
                     </a>
                 </div>

@@ -17,13 +17,13 @@ get_header();
     <?php get_template_part('template-parts/front-social-proof'); ?>
 
     <!-- 3. 開催予定イベント一覧 -->
-    <section class="py-16 md:py-24">
+    <section class="py-20 md:py-28">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12 md:mb-16 scroll-fade-in">
-                <p class="text-green-600 font-semibold text-sm tracking-widest uppercase mb-3">
+            <div class="text-center mb-14 md:mb-20 scroll-fade-in">
+                <div class="section-label justify-center">
                     <?php _e('Events', 'okitech'); ?>
-                </p>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+                </div>
+                <h2 class="section-title">
                     <?php _e('開催予定のイベント', 'okitech'); ?>
                 </h2>
             </div>
@@ -68,16 +68,20 @@ get_header();
                     endwhile; ?>
                 </div>
 
-                <div class="text-center mt-10 md:mt-14 scroll-fade-in">
-                    <a href="<?php echo get_post_type_archive_link('event'); ?>" class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
+                <div class="text-center mt-12 md:mt-16 scroll-fade-in">
+                    <a href="<?php echo get_post_type_archive_link('event'); ?>" class="btn-primary">
                         <?php _e('すべてのイベントを見る', 'okitech'); ?>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
             <?php else : ?>
-                <div class="text-center max-w-md mx-auto">
-                    <p class="text-gray-500 mb-2"><?php _e('現在開催予定のイベントはありません。', 'okitech'); ?></p>
-                    <p class="text-gray-400 text-sm mb-6"><?php _e('Discordに参加すると、次回イベントの情報をいち早くお届けします。', 'okitech'); ?></p>
-                    <a href="https://discord.gg/KDBynzKzUA" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded-xl transition-colors duration-200">
+                <div class="text-center max-w-md mx-auto scroll-fade-in">
+                    <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <p class="text-gray-500 mb-2 font-medium"><?php _e('現在開催予定のイベントはありません。', 'okitech'); ?></p>
+                    <p class="text-gray-400 text-sm mb-8"><?php _e('Discordに参加すると、次回イベントの情報をいち早くお届けします。', 'okitech'); ?></p>
+                    <a href="https://discord.gg/KDBynzKzUA" target="_blank" rel="noopener noreferrer" class="btn-primary">
                         <?php _e('Discordに参加する', 'okitech'); ?>
                     </a>
                 </div>

@@ -70,8 +70,8 @@ get_header();
                         </div>
 
                         <!-- イベント詳細内容 -->
-                        <div class="bg-white rounded-2xl border border-gray-100 p-6 md:p-8 shadow-sm scroll-fade-in">
-                            <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-6"><?php _e('Event Details', 'okitech'); ?></h3>
+                        <div class="rich-card p-6 md:p-8 scroll-fade-in">
+                            <div class="section-label mb-6"><?php _e('Event Details', 'okitech'); ?></div>
                             <div class="entry-content prose prose-lg max-w-none">
                                 <?php
                                 the_content();
@@ -88,11 +88,11 @@ get_header();
                     <div class="lg:col-span-1 space-y-6">
                         <?php get_template_part('template-parts/event-application-info'); ?>
 
-                        <div class="bg-gray-50 rounded-2xl p-6">
+                        <div class="glass-card p-6">
                             <h4 class="font-bold text-gray-900 mb-3"><?php _e('お問い合わせ', 'okitech'); ?></h4>
                             <p class="text-gray-500 text-sm mb-4"><?php _e('イベントについてご質問がございましたら、お気軽にどうぞ。', 'okitech'); ?></p>
                             <a href="<?php echo esc_url(get_permalink(get_page_by_path('contact'))); ?>"
-                               class="inline-flex items-center justify-center w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl text-sm transition-colors duration-200">
+                               class="btn-primary w-full text-sm" style="padding:0.75rem 1.5rem;">
                                 <?php _e('お問い合わせ', 'okitech'); ?>
                             </a>
                         </div>
@@ -101,7 +101,7 @@ get_header();
 
                 <!-- シェア -->
                 <footer class="mt-12 pt-8 border-t border-gray-100">
-                    <p class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4"><?php _e('Share', 'okitech'); ?></p>
+                    <div class="section-label mb-4"><?php _e('Share', 'okitech'); ?></div>
                     <div class="flex gap-3">
                         <a href="https://twitter.com/intent/tweet?url=<?php echo urlencode(get_permalink()); ?>&text=<?php echo urlencode(get_the_title()); ?>"
                            target="_blank" rel="noopener noreferrer"
@@ -145,13 +145,17 @@ get_header();
             if ($related_events->have_posts()) :
             ?>
                 <section class="max-w-6xl mx-auto mt-16 pt-12 border-t border-gray-100">
-                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-8"><?php _e('Related Events', 'okitech'); ?></h3>
+                    <div class="section-label mb-8">
+                        <?php _e('Related Events', 'okitech'); ?>
+                    </div>
                     <div class="grid md:grid-cols-3 gap-6 scroll-stagger">
                         <?php while ($related_events->have_posts()) : $related_events->the_post(); ?>
-                            <article class="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                            <article class="event-card">
                                 <?php if (has_post_thumbnail()) : ?>
-                                    <div class="h-48">
-                                        <?php the_post_thumbnail('medium', array('class' => 'w-full h-full object-cover')); ?>
+                                    <div class="event-image">
+                                        <a href="<?php the_permalink(); ?>">
+                                            <?php the_post_thumbnail('medium', array('class' => 'w-full h-48 object-cover')); ?>
+                                        </a>
                                     </div>
                                 <?php endif; ?>
                                 <div class="p-5">

@@ -11,16 +11,16 @@ get_header();
 <main id="primary" class="site-main">
 
     <!-- ヒーローセクション -->
-    <section class="py-24 md:py-32">
+    <section class="page-hero py-24 md:py-32">
         <div class="container mx-auto px-4">
             <div class="max-w-3xl mx-auto text-center scroll-fade-in">
-                <p class="text-green-600 font-semibold text-sm tracking-widest uppercase mb-4">
+                <div class="page-hero-label justify-center">
                     <?php _e('Contact', 'okitech'); ?>
-                </p>
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                </div>
+                <h1 class="page-hero-title">
                     <?php _e('お問い合わせ', 'okitech'); ?>
                 </h1>
-                <p class="text-lg text-gray-500 leading-relaxed">
+                <p class="page-hero-desc">
                     <?php _e('ご質問やご相談など、お気軽にお問い合わせください。<br class="hidden md:inline">通常2営業日以内にご返信いたします。', 'okitech'); ?>
                 </p>
             </div>
@@ -39,7 +39,7 @@ get_header();
                     </div>
                 <?php endif; ?>
 
-                <div class="bg-gray-50 rounded-2xl p-8 md:p-10 scroll-fade-in">
+                <div class="glass-card p-8 md:p-10 scroll-fade-in">
                     <?php
                     if (function_exists('wpcf7_contact_form')) {
                         $custom_form_id = get_theme_mod('okitech_contact_form_id', '');
@@ -68,9 +68,9 @@ get_header();
             <!-- その他の方法 -->
             <div class="max-w-2xl mx-auto">
                 <div class="grid md:grid-cols-2 gap-6 scroll-stagger">
-                    <div class="bg-gray-50 rounded-2xl p-6 hover:bg-green-50 transition-colors duration-300 scroll-fade-in">
-                        <div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center mb-4">
-                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="safety-card scroll-fade-in">
+                        <div class="safety-card-icon">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                             </svg>
                         </div>
@@ -81,9 +81,9 @@ get_header();
                         </a>
                     </div>
 
-                    <div class="bg-gray-50 rounded-2xl p-6 hover:bg-green-50 transition-colors duration-300 scroll-fade-in">
-                        <div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center mb-4">
-                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="safety-card scroll-fade-in">
+                        <div class="safety-card-icon">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>

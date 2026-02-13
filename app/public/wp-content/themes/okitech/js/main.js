@@ -1,79 +1,90 @@
 /**
  * OkiTech Theme JavaScript
- * 
+ *
  * @package OkiTech
  */
 
 (function($) {
     'use strict';
 
-    // DOM読み込み完了後に実行
     $(document).ready(function() {
-        
-        // モバイルメニューの切り替え
-        $('.menu-toggle').on('click', function() {
-            const menu = $('#primary-menu');
-            const button = $(this);
-            const isExpanded = button.attr('aria-expanded') === 'true';
-            
-            // メニューの表示/非表示を切り替え
-            menu.toggleClass('hidden');
-            menu.toggleClass('block');
-            
-            // ボタンのaria-expanded属性を更新
-            button.attr('aria-expanded', !isExpanded);
-            
-            // メニューが表示されている場合は、モバイル用のスタイルを適用
-            if (!menu.hasClass('hidden')) {
-                menu.addClass('absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-200 py-4 space-y-4');
-                menu.find('li').addClass('block px-4');
-                menu.find('a').addClass('block py-2');
+
+        // ─── ヘッダースクロール効果 ───
+        var header = document.querySelector('.site-header');
+        var lastScroll = 0;
+
+        function handleHeaderScroll() {
+            var currentScroll = window.pageYOffset;
+
+            if (currentScroll > 20) {
+                header.classList.add('scrolled');
             } else {
-                menu.removeClass('absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-200 py-4 space-y-4');
-                menu.find('li').removeClass('block px-4');
-                menu.find('a').removeClass('block py-2');
+                header.classList.remove('scrolled');
             }
+
+            lastScroll = currentScroll;
+        }
+
+        window.addEventListener('scroll', handleHeaderScroll, { passive: true });
+        handleHeaderScroll();
+
+        // ─── モバイルメニュー ───
+        var menuToggle = document.querySelector('.menu-toggle');
+        var primaryMenu = document.getElementById('primary-menu');
+
+        if (menuToggle && primaryMenu) {
+            menuToggle.addEventListener('click', function() {
+                var isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+
+                if (primaryMenu.classList.contains('hidden')) {
+                    primaryMenu.classList.remove('hidden');
+                    primaryMenu.classList.add('block', 'absolute', 'top-full', 'left-0', 'w-full', 'bg-white', 'shadow-xl', 'border-t', 'border-gray-100', 'py-4', 'space-y-1');
+                    primaryMenu.style.backdropFilter = 'blur(20px)';
+                    primaryMenu.querySelectorAll('li').forEach(function(li) {
+                        li.classList.add('px-4');
+                    });
+                    primaryMenu.querySelectorAll('a').forEach(function(a) {
+                        a.classList.add('block', 'py-3', 'px-2', 'rounded-lg', 'hover:bg-gray-50', 'transition-colors');
+                    });
+                } else {
+                    primaryMenu.classList.add('hidden');
+                    primaryMenu.classList.remove('block', 'absolute', 'top-full', 'left-0', 'w-full', 'bg-white', 'shadow-xl', 'border-t', 'border-gray-100', 'py-4', 'space-y-1');
+                    primaryMenu.style.backdropFilter = '';
+                    primaryMenu.querySelectorAll('li').forEach(function(li) {
+                        li.classList.remove('px-4');
+                    });
+                    primaryMenu.querySelectorAll('a').forEach(function(a) {
+                        a.classList.remove('block', 'py-3', 'px-2', 'rounded-lg', 'hover:bg-gray-50', 'transition-colors');
+                    });
+                }
+            });
+
+            // メニュー外クリックで閉じる
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.main-navigation')) {
+                    primaryMenu.classList.add('hidden');
+                    primaryMenu.classList.remove('block', 'absolute', 'top-full', 'left-0', 'w-full', 'bg-white', 'shadow-xl', 'border-t', 'border-gray-100', 'py-4', 'space-y-1');
+                    if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        // ─── スムーススクロール ───
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    var offset = header ? header.offsetHeight + 20 : 100;
+                    var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: top, behavior: 'smooth' });
+                }
+            });
         });
-        
-        // メニュー外をクリックした時にメニューを閉じる
-        $(document).on('click', function(e) {
-            if (!$(e.target).closest('.main-navigation').length) {
-                $('#primary-menu').addClass('hidden').removeClass('block absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-200 py-4 space-y-4');
-                $('.menu-toggle').attr('aria-expanded', 'false');
-            }
-        });
-        
-        // スムーススクロール（アンカーリンク用）
-        $('a[href^="#"]').on('click', function(e) {
-            const target = $(this.getAttribute('href'));
-            if (target.length) {
-                e.preventDefault();
-                $('html, body').animate({
-                    scrollTop: target.offset().top - 100
-                }, 800);
-            }
-        });
-        
-        // スクロール時のヘッダー背景変更
-        $(window).on('scroll', function() {
-            const header = $('.site-header');
-            if ($(window).scrollTop() > 50) {
-                header.addClass('bg-white/95 backdrop-blur-sm');
-            } else {
-                header.removeClass('bg-white/95 backdrop-blur-sm');
-            }
-        });
-        
-        // イベントカードのホバーエフェクト
-        $('.event-card').on('mouseenter', function() {
-            $(this).addClass('transform scale-105');
-        }).on('mouseleave', function() {
-            $(this).removeClass('transform scale-105');
-        });
-        
-        // IntersectionObserver を使った機能
+
+        // ─── IntersectionObserver: スクロールアニメーション ───
         if ('IntersectionObserver' in window) {
-            // スクロールアニメーション
             var scrollObserver = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
@@ -81,19 +92,21 @@
                         scrollObserver.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.15 });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
             document.querySelectorAll('.scroll-fade-in, .scroll-fade-in-left, .scroll-fade-in-right, .scroll-scale-in').forEach(function(el) {
                 scrollObserver.observe(el);
             });
 
-            // 画像の遅延読み込み（Lazy Loading）
+            // 画像の遅延読み込み
             var imageObserver = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         var img = entry.target;
-                        img.src = img.dataset.src;
-                        img.classList.remove('lazy');
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                        }
                         imageObserver.unobserve(img);
                     }
                 });
@@ -103,57 +116,8 @@
                 imageObserver.observe(img);
             });
         }
-        
-        // フォームのバリデーション
-        $('form').on('submit', function(e) {
-            const requiredFields = $(this).find('[required]');
-            let isValid = true;
-            
-            requiredFields.each(function() {
-                if (!$(this).val().trim()) {
-                    isValid = false;
-                    $(this).addClass('border-red-500');
-                } else {
-                    $(this).removeClass('border-red-500');
-                }
-            });
-            
-            if (!isValid) {
-                e.preventDefault();
-                alert('必須項目を入力してください。');
-            }
-        });
-        
-        // 検索フォームの改善
-        $('.search-form input[type="search"]').on('focus', function() {
-            $(this).parent().addClass('ring-2 ring-green-500');
-        }).on('blur', function() {
-            $(this).parent().removeClass('ring-2 ring-green-500');
-        });
-        
-        // ページトップに戻るボタン
-        const backToTop = $('<button>', {
-            class: 'fixed bottom-8 right-8 bg-green-600 text-white p-3 rounded-full shadow-lg hover:bg-green-700 transition-all duration-300 opacity-0 pointer-events-none',
-            html: '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>'
-        });
-        
-        $('body').append(backToTop);
-        
-        $(window).on('scroll', function() {
-            if ($(window).scrollTop() > 300) {
-                backToTop.addClass('opacity-100 pointer-events-auto');
-            } else {
-                backToTop.removeClass('opacity-100 pointer-events-auto');
-            }
-        });
-        
-        backToTop.on('click', function() {
-            $('html, body').animate({
-                scrollTop: 0
-            }, 800);
-        });
 
-        // カウントダウンタイマー
+        // ─── カウントダウンタイマー ───
         var countdownEl = document.getElementById('hero-countdown');
         if (countdownEl) {
             var targetDate = countdownEl.getAttribute('data-target');
@@ -165,7 +129,7 @@
                     var diff = target - now;
 
                     if (diff <= 0) {
-                        countdownEl.innerHTML = '<p class="text-gray-500 text-sm">このイベントは開始しました</p>';
+                        countdownEl.innerHTML = '<p class="text-white/60 text-sm">このイベントは開始しました</p>';
                         return;
                     }
 
@@ -174,7 +138,6 @@
                     var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                     var seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-                    // 24時間以内なら緊急スタイル
                     var isUrgent = diff < 24 * 60 * 60 * 1000;
                     countdownEl.className = 'countdown-timer' + (isUrgent ? ' countdown-urgent' : '');
 
@@ -190,22 +153,20 @@
             }
         }
 
-        // 数字カウントアップアニメーション
+        // ─── 数字カウントアップアニメーション ───
         if ('IntersectionObserver' in window) {
             var countUpObserver = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         var el = entry.target;
-                        var target = parseInt(el.getAttribute('data-count'), 10);
+                        var targetVal = parseInt(el.getAttribute('data-count'), 10);
                         var suffix = el.getAttribute('data-suffix') || '';
                         var prefix = el.getAttribute('data-prefix') || '';
-                        var duration = 1500;
-                        var start = 0;
+                        var duration = 1800;
                         var startTime = null;
 
-                        // prefers-reduced-motion チェック
                         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                            el.textContent = prefix + target + suffix;
+                            el.textContent = prefix + targetVal + suffix;
                             countUpObserver.unobserve(el);
                             return;
                         }
@@ -213,14 +174,13 @@
                         function animateCount(timestamp) {
                             if (!startTime) startTime = timestamp;
                             var progress = Math.min((timestamp - startTime) / duration, 1);
-                            // easeOutQuad
-                            var eased = 1 - (1 - progress) * (1 - progress);
-                            var current = Math.floor(eased * target);
+                            var eased = 1 - Math.pow(1 - progress, 3);
+                            var current = Math.floor(eased * targetVal);
                             el.textContent = prefix + current + suffix;
                             if (progress < 1) {
                                 requestAnimationFrame(animateCount);
                             } else {
-                                el.textContent = prefix + target + suffix;
+                                el.textContent = prefix + targetVal + suffix;
                             }
                         }
 
@@ -233,6 +193,80 @@
             document.querySelectorAll('[data-count]').forEach(function(el) {
                 countUpObserver.observe(el);
             });
+        }
+
+        // ─── バックトゥトップボタン ───
+        var backToTop = document.createElement('button');
+        backToTop.className = 'back-to-top';
+        backToTop.setAttribute('aria-label', 'ページトップに戻る');
+        backToTop.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>';
+        document.body.appendChild(backToTop);
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }, { passive: true });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ─── フォームバリデーション ───
+        document.querySelectorAll('form').forEach(function(form) {
+            form.addEventListener('submit', function(e) {
+                var requiredFields = form.querySelectorAll('[required]');
+                var isValid = true;
+
+                requiredFields.forEach(function(field) {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#ef4444';
+                        field.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.1)';
+                    } else {
+                        field.style.borderColor = '';
+                        field.style.boxShadow = '';
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                }
+            });
+        });
+
+        // ─── 検索フォームのフォーカスエフェクト ───
+        document.querySelectorAll('.search-form input[type="search"]').forEach(function(input) {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.boxShadow = '0 0 0 3px rgba(5, 150, 105, 0.15)';
+                this.parentElement.style.borderColor = '#059669';
+            });
+            input.addEventListener('blur', function() {
+                this.parentElement.style.boxShadow = '';
+                this.parentElement.style.borderColor = '';
+            });
+        });
+
+        // ─── パララックス効果（ヒーロー背景） ───
+        var heroSection = document.querySelector('.hero-section');
+        if (heroSection && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            var shapes = heroSection.querySelectorAll('.hero-floating-shape');
+
+            window.addEventListener('scroll', function() {
+                var scrollY = window.pageYOffset;
+                var heroHeight = heroSection.offsetHeight;
+
+                if (scrollY < heroHeight) {
+                    var progress = scrollY / heroHeight;
+
+                    shapes.forEach(function(shape, i) {
+                        var speed = 0.3 + (i * 0.15);
+                        shape.style.transform = 'translateY(' + (scrollY * speed) + 'px)';
+                    });
+                }
+            }, { passive: true });
         }
 
     });

@@ -13,7 +13,7 @@ get_header();
     <?php while (have_posts()) : the_post(); ?>
 
         <!-- 記事ヘッダー -->
-        <section class="py-20 md:py-28">
+        <section class="page-hero py-20 md:py-28">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center">
                     <?php if (has_category()) : ?>
@@ -22,17 +22,17 @@ get_header();
                             $categories = get_the_category();
                             $category = $categories[0];
                             ?>
-                            <span class="inline-block px-3 py-1 text-xs font-semibold text-green-600 bg-green-50 rounded-full">
+                            <span class="inline-block px-3 py-1 text-xs font-semibold text-white/80 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full">
                                 <?php echo esc_html($category->name); ?>
                             </span>
                         </div>
                     <?php endif; ?>
 
-                    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                    <h1 class="page-hero-title">
                         <?php the_title(); ?>
                     </h1>
 
-                    <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-400">
+                    <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-white/60 mt-4">
                         <time class="entry-date published" datetime="<?php echo esc_attr(get_the_date('c')); ?>">
                             <?php echo esc_html(get_the_date()); ?>
                         </time>
@@ -72,7 +72,7 @@ get_header();
                     $author_id = get_the_author_meta('ID');
                     if ($author_id) :
                     ?>
-                        <div class="flex items-center gap-4 mb-8 p-6 bg-gray-50 rounded-2xl">
+                        <div class="flex items-center gap-4 mb-8 p-6 glass-card">
                             <div class="flex-shrink-0">
                                 <?php echo get_avatar($author_id, 48, '', '', array('class' => 'rounded-full')); ?>
                             </div>
@@ -87,7 +87,7 @@ get_header();
 
                     <!-- シェアボタン -->
                     <div class="mb-8">
-                        <p class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4"><?php _e('Share', 'okitech'); ?></p>
+                        <div class="section-label mb-4"><?php _e('Share', 'okitech'); ?></div>
                         <div class="flex gap-3">
                             <a href="https://twitter.com/intent/tweet?url=<?php echo urlencode(get_permalink()); ?>&text=<?php echo urlencode(get_the_title()); ?>"
                                target="_blank" rel="noopener noreferrer"

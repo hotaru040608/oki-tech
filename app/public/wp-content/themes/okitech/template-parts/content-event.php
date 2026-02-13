@@ -39,7 +39,7 @@ if ( $event_deadline && strtotime( $event_deadline ) < current_time( 'timestamp'
 }
 
 // カードのクラス
-$card_classes = 'event-card bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg hover:-translate-y-1 border border-gray-100 scroll-fade-in';
+$card_classes = 'event-card scroll-fade-in';
 if ( $is_featured ) {
     $card_classes .= ' event-card-featured';
 }
@@ -56,13 +56,11 @@ if ( $is_featured ) {
             </a>
         </div>
     <?php else : ?>
-        <div class="event-image bg-gradient-to-br from-green-50 to-orange-50 h-48 flex items-center justify-center relative">
-            <div class="text-center">
-                <svg class="w-16 h-16 text-green-500 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                </svg>
-                <p class="text-sm text-gray-600 font-medium"><?php _e( 'コミュニティイベント', 'okitech' ); ?></p>
-            </div>
+        <div class="event-image relative">
+            <a href="<?php the_permalink(); ?>">
+                <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="<?php _e( 'コミュニティイベント', 'okitech' ); ?>" class="w-full h-48 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity"></div>
+            </a>
         </div>
     <?php endif; ?>
 

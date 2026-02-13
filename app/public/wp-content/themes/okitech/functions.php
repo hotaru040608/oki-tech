@@ -31,10 +31,11 @@ function okitech_theme_setup() {
     
     // カスタムロゴのサポート
     add_theme_support('custom-logo', array(
-        'height'      => 100,
-        'width'       => 400,
-        'flex-height' => true,
-        'flex-width'  => true,
+        'height'               => 120,
+        'width'                => 400,
+        'flex-height'          => true,
+        'flex-width'           => true,
+        'unlink-homepage-logo' => false,
     ));
     
     // メニューの登録
@@ -50,10 +51,10 @@ add_action('after_setup_theme', 'okitech_theme_setup');
  */
 function okitech_scripts() {
     // メインスタイルシート
-    wp_enqueue_style('okitech-style', get_stylesheet_uri(), array(), '1.0.0');
-    
+    wp_enqueue_style('okitech-style', get_stylesheet_uri(), array(), '2.0.0');
+
     // メインスクリプト
-    wp_enqueue_script('okitech-script', get_template_directory_uri() . '/js/main.js', array('jquery'), '1.0.0', true);
+    wp_enqueue_script('okitech-script', get_template_directory_uri() . '/js/main.js', array('jquery'), '2.0.0', true);
 }
 add_action('wp_enqueue_scripts', 'okitech_scripts');
 
@@ -87,8 +88,6 @@ function okitech_register_post_types() {
     ));
 }
 add_action('init', 'okitech_register_post_types');
-
-
 
 /**
  * ページテンプレートの登録
@@ -781,59 +780,28 @@ function okitech_cf7_check_deadline($result, $tag) {
 add_filter('wpcf7_validate', 'okitech_cf7_check_deadline', 10, 2);
 
 /**
- * イベントアーカイブページのタイトルを変更
+ * イベントアーカイブページのタイトルを一括変更
  */
 function okitech_event_archive_title($title) {
     if (is_post_type_archive('event')) {
-        return 'イベント一覧';
+        return __('イベント一覧', 'okitech');
     }
     return $title;
 }
 add_filter('get_the_archive_title', 'okitech_event_archive_title');
+add_filter('single_post_title', 'okitech_event_archive_title');
 
-/**
- * イベントアーカイブページのページタイトルを変更
- */
-function okitech_event_archive_page_title($title) {
-    if (is_post_type_archive('event')) {
-        return 'イベント一覧';
-    }
-    return $title;
-}
-add_filter('single_post_title', 'okitech_event_archive_page_title');
-// the_titleフィルターを削除して、個別イベントページのタイトルが正しく表示されるようにする
-
-/**
- * イベントアーカイブページのブラウザタイトルを変更
- */
 function okitech_event_archive_document_title($title) {
     if (is_post_type_archive('event')) {
-        return array(
-            'title' => 'イベント一覧',
-            'site' => get_bloginfo('name')
-        );
+        $title['title'] = __('イベント一覧', 'okitech');
     }
     return $title;
 }
 add_filter('document_title_parts', 'okitech_event_archive_document_title');
 
-/**
- * イベントアーカイブページのメタタイトルを変更
- */
-function okitech_event_archive_meta_title($title) {
-    if (is_post_type_archive('event')) {
-        return 'イベント一覧 - ' . get_bloginfo('name');
-    }
-    return $title;
-}
-add_filter('wp_title', 'okitech_event_archive_meta_title');
-
-/**
- * パンくずリストでイベントアーカイブページのタイトルを変更
- */
 function okitech_event_archive_breadcrumb_title($title, $post_type) {
-    if ($post_type === 'event' && is_post_type_archive('event')) {
-        return 'イベント一覧';
+    if ($post_type === 'event') {
+        return __('イベント一覧', 'okitech');
     }
     return $title;
 }
@@ -871,20 +839,6 @@ function okitech_event_archive_query($query) {
     }
 }
 add_action('pre_get_posts', 'okitech_event_archive_query'); 
-
-/**
- * カスタムロゴの設定を強化
- */
-function okitech_custom_logo_setup() {
-    add_theme_support('custom-logo', array(
-        'height'      => 120,
-        'width'       => 400,
-        'flex-height' => true,
-        'flex-width'  => true,
-        'unlink-homepage-logo' => false,
-    ));
-}
-add_action('after_setup_theme', 'okitech_custom_logo_setup');
 
 /**
  * カスタムロゴのHTMLをカスタマイズ

@@ -6,7 +6,7 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 scroll-fade-in'); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('rich-card scroll-fade-in'); ?>>
 
     <!-- 投稿画像 -->
     <?php if (has_post_thumbnail()) : ?>

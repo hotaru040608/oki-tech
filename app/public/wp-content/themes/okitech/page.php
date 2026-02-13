@@ -13,10 +13,10 @@ get_header();
     <?php while (have_posts()) : the_post(); ?>
 
         <!-- ページヘッダー -->
-        <section class="py-24 md:py-32">
+        <section class="page-hero py-24 md:py-32">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center">
-                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                    <h1 class="page-hero-title">
                         <?php the_title(); ?>
                     </h1>
                     <?php if (has_post_thumbnail()) : ?>
