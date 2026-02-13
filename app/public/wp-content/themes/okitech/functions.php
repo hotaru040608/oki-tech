@@ -726,7 +726,35 @@ function okitech_cf7_online_tool($atts) {
     }
     return '';
 }
-add_shortcode('online_tool', 'okitech_cf7_online_tool'); 
+add_shortcode('online_tool', 'okitech_cf7_online_tool');
+
+/**
+ * 次回開催イベントを取得するヘルパー関数
+ */
+function okitech_get_next_event() {
+    $query = new WP_Query(array(
+        'post_type'      => 'event',
+        'posts_per_page' => 1,
+        'post_status'    => 'publish',
+        'meta_key'       => 'event_date',
+        'orderby'        => 'meta_value',
+        'order'          => 'ASC',
+        'meta_query'     => array(
+            array(
+                'key'     => 'event_date',
+                'value'   => date('Y-m-d'),
+                'compare' => '>=',
+                'type'    => 'DATE',
+            ),
+        ),
+    ));
+
+    if ($query->have_posts()) {
+        return $query->posts[0];
+    }
+
+    return null;
+}
 
 /**
  * Contact Form 7で締切時間をチェック
@@ -869,4 +897,129 @@ function okitech_custom_logo_html($html, $blog_id) {
     
     return $html;
 }
-add_filter('get_custom_logo', 'okitech_custom_logo_html', 10, 2); 
+add_filter('get_custom_logo', 'okitech_custom_logo_html', 10, 2);
+
+/**
+ * お問い合わせフォームIDを取得
+ */
+function okitech_get_contact_form_id() {
+    // テーマオプションから取得（カスタマイザーで設定可能）
+    $form_id = get_theme_mod('okitech_contact_form_id', '');
+    
+    // 設定されていない場合、デフォルトのフォームIDを使用
+    if (empty($form_id)) {
+        // デフォルトのフォームID（コンタクトフォーム）
+        return 'e9860a7';
+    }
+    
+    return $form_id;
+}
+
+/**
+ * お問い合わせフォームを表示
+ */
+function okitech_display_contact_form() {
+    if (!function_exists('wpcf7_contact_form')) {
+        return false;
+    }
+    
+    $form_id = okitech_get_contact_form_id();
+    
+    if (empty($form_id)) {
+        return false;
+    }
+    
+    return do_shortcode('[contact-form-7 id="' . esc_attr($form_id) . '"]');
+}
+
+/**
+ * カスタマイザーにContact Form 7のフォームID設定を追加
+ */
+function okitech_customize_register($wp_customize) {
+    // Contact Form 7セクションを追加
+    $wp_customize->add_section('okitech_contact_form', array(
+        'title'    => __('お問い合わせフォーム', 'okitech'),
+        'priority' => 120,
+    ));
+    
+    // お問い合わせフォームID設定
+    $wp_customize->add_setting('okitech_contact_form_id', array(
+        'default'           => '',
+        'sanitize_callback' => 'absint',
+    ));
+    
+    // Contact Form 7のフォームリストを取得
+    $form_options = array('' => __('自動選択（最新のフォーム）', 'okitech'));
+    if (function_exists('wpcf7_contact_form')) {
+        $forms = get_posts(array(
+            'post_type' => 'wpcf7_contact_form',
+            'posts_per_page' => -1,
+            'orderby' => 'title',
+            'order' => 'ASC',
+            'post_status' => 'publish'
+        ));
+        
+        foreach ($forms as $form) {
+            $form_options[$form->ID] = $form->post_title . ' (ID: ' . $form->ID . ')';
+        }
+    }
+    
+    $wp_customize->add_control('okitech_contact_form_id', array(
+        'label'       => __('お問い合わせフォーム', 'okitech'),
+        'description' => __('お問い合わせページで使用するContact Form 7のフォームを選択してください。', 'okitech'),
+        'section'     => 'okitech_contact_form',
+        'type'        => 'select',
+        'choices'     => $form_options,
+    ));
+
+    // 社会的証明セクション
+    $wp_customize->add_section('okitech_social_proof', array(
+        'title'    => __('社会的証明（フロントページ）', 'okitech'),
+        'priority' => 125,
+    ));
+
+    // イベント開催数
+    $wp_customize->add_setting('okitech_sp_events', array(
+        'default'           => '10',
+        'sanitize_callback' => 'absint',
+    ));
+    $wp_customize->add_control('okitech_sp_events', array(
+        'label'   => __('イベント開催数', 'okitech'),
+        'section' => 'okitech_social_proof',
+        'type'    => 'number',
+    ));
+
+    // 参加者数
+    $wp_customize->add_setting('okitech_sp_members', array(
+        'default'           => '100',
+        'sanitize_callback' => 'absint',
+    ));
+    $wp_customize->add_control('okitech_sp_members', array(
+        'label'   => __('参加者数', 'okitech'),
+        'section' => 'okitech_social_proof',
+        'type'    => 'number',
+    ));
+
+    // 満足度
+    $wp_customize->add_setting('okitech_sp_satisfaction', array(
+        'default'           => '95',
+        'sanitize_callback' => 'absint',
+    ));
+    $wp_customize->add_control('okitech_sp_satisfaction', array(
+        'label'   => __('満足度（%）', 'okitech'),
+        'section' => 'okitech_social_proof',
+        'type'    => 'number',
+    ));
+
+    // ミニ感想引用
+    $wp_customize->add_setting('okitech_sp_quote', array(
+        'default'           => '一人で参加しましたが、すぐに打ち解けて楽しめました！',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('okitech_sp_quote', array(
+        'label'   => __('ミニ感想引用', 'okitech'),
+        'section' => 'okitech_social_proof',
+        'type'    => 'text',
+    ));
+}
+add_action('customize_register', 'okitech_customize_register');

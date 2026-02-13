@@ -100,7 +100,29 @@ okitech/
 #### ウィジェットの並び替え
 ドラッグ&ドロップでウィジェットの順序を変更できます。
 
-### 7. コメント機能の設定
+### 7. お問い合わせフォームの設定（Contact Form 7）
+
+#### Contact Form 7のインストール
+1. **プラグイン** → **新規追加**
+2. 「Contact Form 7」を検索してインストール・有効化
+
+#### お問い合わせフォームの作成
+1. **お問い合わせ** → **コンタクトフォーム** → **新規追加**
+2. `CONTACT-FORM-TEMPLATE.md`に記載されているフォームコードをコピー＆ペースト
+3. フォーム名を「お問い合わせフォーム」などに設定
+4. メール設定を構成（管理者への通知と自動返信）
+5. **保存**をクリック
+
+#### テーマとの統合
+1. **外観** → **カスタマイズ** → **お問い合わせフォーム**
+2. 作成したフォームを選択
+3. **公開**をクリック
+
+これで、お問い合わせページ（`/contact/`）にフォームが表示されます。
+
+詳細な設定方法は、`CONTACT-FORM-TEMPLATE.md`を参照してください。
+
+### 8. コメント機能の設定
 
 #### コメント機能の有効化
 1. **管理画面** → **設定** → **ディスカッション**
@@ -170,6 +192,28 @@ okitech/
 ## ライセンス
 
 このテーマはMITライセンスの下で公開されています。
+
+## GitHubへのプッシュ手順
+
+このテーマをGitHubで管理する場合：
+
+1. **GitHubでリポジトリを新規作成**（`okitech-theme` など）
+
+2. **ターミナルで以下を実行**：
+
+```bash
+cd wp-content/themes/okitech
+git init
+git add .
+git commit -m "Initial commit: OkiTech theme"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+git push -u origin main
+```
+
+3. **認証**: GitHubの認証が必要な場合は、Personal Access Token（PAT）またはSSH鍵を使用してください。
+
+> ⚠️ **macOSの場合**: `git` コマンドで「Xcode license」のエラーが出る場合は、ターミナルで `sudo xcodebuild -license` を実行してライセンスに同意してください。
 
 ## サポート
 

@@ -71,20 +71,35 @@
             $(this).removeClass('transform scale-105');
         });
         
-        // 画像の遅延読み込み（Lazy Loading）
+        // IntersectionObserver を使った機能
         if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
+            // スクロールアニメーション
+            var scrollObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
-                        const img = entry.target;
+                        entry.target.classList.add('is-visible');
+                        scrollObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.scroll-fade-in, .scroll-fade-in-left, .scroll-fade-in-right, .scroll-scale-in').forEach(function(el) {
+                scrollObserver.observe(el);
+            });
+
+            // 画像の遅延読み込み（Lazy Loading）
+            var imageObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var img = entry.target;
                         img.src = img.dataset.src;
                         img.classList.remove('lazy');
                         imageObserver.unobserve(img);
                     }
                 });
             });
-            
-            document.querySelectorAll('img[data-src]').forEach(img => {
+
+            document.querySelectorAll('img[data-src]').forEach(function(img) {
                 imageObserver.observe(img);
             });
         }
@@ -137,7 +152,89 @@
                 scrollTop: 0
             }, 800);
         });
-        
+
+        // カウントダウンタイマー
+        var countdownEl = document.getElementById('hero-countdown');
+        if (countdownEl) {
+            var targetDate = countdownEl.getAttribute('data-target');
+            if (targetDate) {
+                var target = new Date(targetDate).getTime();
+
+                function updateCountdown() {
+                    var now = new Date().getTime();
+                    var diff = target - now;
+
+                    if (diff <= 0) {
+                        countdownEl.innerHTML = '<p class="text-gray-500 text-sm">このイベントは開始しました</p>';
+                        return;
+                    }
+
+                    var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    // 24時間以内なら緊急スタイル
+                    var isUrgent = diff < 24 * 60 * 60 * 1000;
+                    countdownEl.className = 'countdown-timer' + (isUrgent ? ' countdown-urgent' : '');
+
+                    countdownEl.innerHTML =
+                        '<div class="countdown-unit"><span class="countdown-number">' + days + '</span><span class="countdown-label">日</span></div>' +
+                        '<div class="countdown-unit"><span class="countdown-number">' + String(hours).padStart(2, '0') + '</span><span class="countdown-label">時間</span></div>' +
+                        '<div class="countdown-unit"><span class="countdown-number">' + String(minutes).padStart(2, '0') + '</span><span class="countdown-label">分</span></div>' +
+                        '<div class="countdown-unit"><span class="countdown-number">' + String(seconds).padStart(2, '0') + '</span><span class="countdown-label">秒</span></div>';
+                }
+
+                updateCountdown();
+                setInterval(updateCountdown, 1000);
+            }
+        }
+
+        // 数字カウントアップアニメーション
+        if ('IntersectionObserver' in window) {
+            var countUpObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var el = entry.target;
+                        var target = parseInt(el.getAttribute('data-count'), 10);
+                        var suffix = el.getAttribute('data-suffix') || '';
+                        var prefix = el.getAttribute('data-prefix') || '';
+                        var duration = 1500;
+                        var start = 0;
+                        var startTime = null;
+
+                        // prefers-reduced-motion チェック
+                        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                            el.textContent = prefix + target + suffix;
+                            countUpObserver.unobserve(el);
+                            return;
+                        }
+
+                        function animateCount(timestamp) {
+                            if (!startTime) startTime = timestamp;
+                            var progress = Math.min((timestamp - startTime) / duration, 1);
+                            // easeOutQuad
+                            var eased = 1 - (1 - progress) * (1 - progress);
+                            var current = Math.floor(eased * target);
+                            el.textContent = prefix + current + suffix;
+                            if (progress < 1) {
+                                requestAnimationFrame(animateCount);
+                            } else {
+                                el.textContent = prefix + target + suffix;
+                            }
+                        }
+
+                        requestAnimationFrame(animateCount);
+                        countUpObserver.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            document.querySelectorAll('[data-count]').forEach(function(el) {
+                countUpObserver.observe(el);
+            });
+        }
+
     });
-    
-})(jQuery); 
+
+})(jQuery);

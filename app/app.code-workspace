@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../conf"
+		},
+		{
+			"path": "../languages"
+		},
+		{
+			"path": "../logs"
+		},
+		{
+			"path": "../plugins"
+		},
+		{
+			"path": "../themes"
+		},
+		{
+			"path": "../uploads"
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+vendor/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build / Logs
+*.log
+*.zip
+
+# Environment
+.env
+.env.local
+.env.*.local

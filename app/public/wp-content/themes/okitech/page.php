@@ -9,61 +9,48 @@ get_header();
 ?>
 
 <main id="primary" class="site-main">
-    <div class="container mx-auto px-4 py-8">
-        
-        <?php while (have_posts()) : the_post(); ?>
-            
-            <article id="post-<?php the_ID(); ?>" <?php post_class('max-w-4xl mx-auto'); ?>>
-                
-                <!-- ページヘッダー -->
-                <header class="entry-header mb-8">
-                    <?php the_title('<h1 class="entry-title text-4xl font-bold text-gray-800 mb-4">', '</h1>'); ?>
-                    
+
+    <?php while (have_posts()) : the_post(); ?>
+
+        <!-- ページヘッダー -->
+        <section class="py-24 md:py-32">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                        <?php the_title(); ?>
+                    </h1>
                     <?php if (has_post_thumbnail()) : ?>
-                        <div class="entry-thumbnail mb-6">
-                            <?php the_post_thumbnail('large', array('class' => 'w-full h-64 object-cover rounded-lg')); ?>
+                        <div class="mt-10">
+                            <?php the_post_thumbnail('large', array('class' => 'w-full h-64 md:h-80 object-cover rounded-2xl')); ?>
                         </div>
                     <?php endif; ?>
-                </header>
+                </div>
+            </div>
+        </section>
 
-                <!-- ページコンテンツ -->
+        <div class="container mx-auto px-4 pb-24">
+            <article id="post-<?php the_ID(); ?>" <?php post_class('max-w-3xl mx-auto'); ?>>
                 <div class="entry-content prose prose-lg max-w-none">
                     <?php
                     the_content();
-                    
                     wp_link_pages(array(
                         'before' => '<div class="page-links">' . __('ページ:', 'okitech'),
                         'after'  => '</div>',
                     ));
                     ?>
                 </div>
-
-                <!-- ページフッター -->
-                <footer class="entry-footer mt-8 pt-8 border-t border-gray-200">
-                    <div class="entry-meta text-gray-600">
-                        <span class="posted-on">
-                            <?php _e('更新日:', 'okitech'); ?>
-                            <time class="entry-date published" datetime="<?php echo esc_attr(get_the_modified_date('c')); ?>">
-                                <?php echo esc_html(get_the_modified_date()); ?>
-                            </time>
-                        </span>
-                    </div>
-                </footer>
-                
             </article>
 
-            <!-- コメント -->
             <?php
             if (comments_open() || get_comments_number()) :
                 comments_template();
             endif;
             ?>
+        </div>
 
-        <?php endwhile; ?>
-        
-    </div>
+    <?php endwhile; ?>
+
 </main>
 
 <?php
-get_sidebar();
-get_footer(); 
+get_footer();
